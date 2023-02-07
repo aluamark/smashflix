@@ -55,6 +55,7 @@ const Search = () => {
 					placeholder={
 						selectOption === "Anime" ? "Anime title..." : "Movie title..."
 					}
+					autoComplete="off"
 				/>
 				<FaSearch className="absolute inset-y-0 my-auto px-3 fill-red-600 h-6 w-10" />
 			</div>
