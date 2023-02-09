@@ -90,10 +90,10 @@ const Nav = () => {
 										  }
 										: {};
 								}}
-								to="/anime"
+								to="/movie"
 								className="flex w-full justify-center hover:text-red-500 hover:bg-zinc-800 duration-300 py-5 px-3 cursor-pointer"
 							>
-								Anime
+								Movie
 							</NavLink>
 							<NavLink
 								onClick={() => setNavbar(!navbar)}
@@ -106,10 +106,10 @@ const Nav = () => {
 										  }
 										: {};
 								}}
-								to="/movie"
+								to="/anime"
 								className="flex w-full justify-center hover:text-red-500 hover:bg-zinc-800 duration-300 py-5 px-3 cursor-pointer"
 							>
-								Movie
+								Anime
 							</NavLink>
 							<Search />
 						</ul>

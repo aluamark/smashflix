@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 
 const Search = () => {
 	const [searchValue, setSearchValue] = useState("");
-	const [selectOption, setSelectOption] = useState("Anime");
+	const [selectOption, setSelectOption] = useState("Movie");
 	const history = useNavigate();
 
 	const handleSearchInputChanges = (e) => {

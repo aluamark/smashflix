@@ -25,17 +25,11 @@ const MovieHeader = ({
 								<Link
 									to={`/watch/${episodes[0].id}`}
 									state={{ title: movieData.title, mediaId: mediaId }}
-									className="flex items-center border bg-gray-300 hover:bg-gray-500 text-black hover:text-white border-gray-300 hover:border-gray-500 duration-300 py-2 px-5 animate-pulse"
+									className="flex items-center border text-white border-gray-300 hover:border-gray-800 hover:bg-gray-800 duration-300 cursor-pointer py-2 px-5 animate-pulse hover:anime"
 								>
 									<FaPlay className="mr-1" />
 									Play
 								</Link>
-								<a
-									href="#episodes"
-									className="flex border text-white border-gray-300 hover:border-gray-800 hover:bg-gray-800 duration-300 cursor-pointer py-2 px-5 animate-pulse"
-								>
-									See Episodes
-								</a>
 							</div>
 						) : (
 							<div className="border text-white border-gray-300 hover:border-gray-800 hover:bg-gray-800 duration-300 py-2 px-5 select-none">
@@ -99,6 +93,7 @@ const MovieHeader = ({
 					</div>
 				</div>
 				<MovieEpisodeList
+					movieData={movieData}
 					title={movieData?.title}
 					mediaId={movieData?.id}
 					episodes={movieData?.episodes}

@@ -53,8 +53,8 @@ const Home = () => {
 				</div>
 			) : (
 				<div className="pt-20">
-					<AnimeSlider topAnimes={topAnimes} />
 					<MovieSlider topMovies={topMovies} />
+					<AnimeSlider topAnimes={topAnimes} />
 				</div>
 			)}
 		</div>

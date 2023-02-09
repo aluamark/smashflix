@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 
-const MovieEpisodeList = ({ title, mediaId, episodes, isSeries }) => {
+const MovieEpisodeList = ({
+	movieData,
+	title,
+	mediaId,
+	episodes,
+	isSeries,
+}) => {
 	const [availableSeasons, setSeasons] = useState([]);
 	const [groupedSeason, setGroupedSeason] = useState({});
 	const [selectOption, setSelectOption] = useState("1");
+	const [availableEpisodes, setAvailableEpisodes] = useState(0);
 
 	useEffect(() => {
 		if (isSeries) {
@@ -18,6 +25,7 @@ const MovieEpisodeList = ({ title, mediaId, episodes, isSeries }) => {
 
 			setSeasons(Object.keys(result));
 			setGroupedSeason(result);
+			setAvailableEpisodes(result[selectOption].length);
 		}
 	}, [episodes]);
 
@@ -64,8 +72,13 @@ const MovieEpisodeList = ({ title, mediaId, episodes, isSeries }) => {
 											<Link
 												to={`/watch/${episode.id}`}
 												state={{
+													movieData,
 													title,
 													mediaId,
+													isSeries,
+													availableSeasons,
+													availableEpisodes,
+													episodes,
 													season: episode.season,
 													number: episode.number,
 												}}
@@ -88,7 +101,13 @@ const MovieEpisodeList = ({ title, mediaId, episodes, isSeries }) => {
 										<div className="flex border-y" key={index}>
 											<Link
 												to={`/watch/${episode.id}`}
-												state={{ title: title, mediaId: mediaId }}
+												state={{
+													movieData,
+													title,
+													mediaId,
+													isSeries,
+													availableSeasons,
+												}}
 												className={`rounded ${
 													index === 0 ? "bg-zinc-900 text-red-600" : ""
 												} hover:bg-zinc-900 hover:text-yellow-600 p-5 w-full`}
