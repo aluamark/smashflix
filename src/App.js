@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import Nav from "./components/Nav";
 import AnimeHome from "./components/anime/AnimeHome";
 import AnimeInfo from "./components/anime/AnimeInfo";

@@ -11,6 +11,7 @@ const AnimePlayEpisode = () => {
 	const location = useLocation();
 	const title = location.state?.title;
 	const [episodeData, setEpisodeData] = useState([]);
+	const [defaultSource, setDefaultSource] = useState([]);
 	const [selectUrl, setSelectUrl] = useState("");
 	const [selectOption, setSelectOption] = useState("");
 	const { promiseInProgress } = usePromiseTracker();
@@ -28,6 +29,16 @@ const AnimePlayEpisode = () => {
 				const { data } = await axios.get(url, {
 					params: { server: "gogocdn" },
 				});
+
+				const reso = data.sources.filter(
+					(source) => source.quality === "default"
+				);
+
+				console.log(reso);
+				if (reso.length !== 0) {
+					setDefaultSource(reso[0]);
+				}
+
 				setEpisodeData(data.sources);
 			} catch (err) {
 				throw new Error(err.message);
@@ -64,12 +75,19 @@ const AnimePlayEpisode = () => {
 								id="quality"
 								className="h-8 px-5 text-black"
 							>
-								<option value="default">default</option>
+								<option
+									defaultValue={true}
+									value={defaultSource.quality}
+									key={defaultSource.quality}
+								>
+									{defaultSource.quality}
+								</option>
 								{episodeData
-									.slice(0, episodeData.length - 2)
-									.map((reso, index) => {
+									.slice(0, episodeData.length - 1)
+									.filter((sources) => sources.quality !== "default")
+									.map((reso) => {
 										return (
-											<option value={index} key={reso.quality}>
+											<option value={reso.quality} key={reso.quality}>
 												{reso.quality}
 											</option>
 										);
@@ -80,7 +98,9 @@ const AnimePlayEpisode = () => {
 
 					<div className="pt-5 w-full">
 						<ReactPlayer
-							url={selectUrl ? selectUrl : episodeData[4]?.url}
+							url={`https://proxy.vnxservers.com/${
+								selectUrl ? selectUrl : defaultSource.url
+							}`}
 							controls
 							playing
 							volume={1}

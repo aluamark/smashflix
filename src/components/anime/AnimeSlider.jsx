@@ -21,7 +21,7 @@ const Home = ({ topAnimes }) => {
 			<div className="relative flex items-center group">
 				<MdChevronLeft
 					onClick={slideLeft}
-					className="absolute left-0 z-10 hidden group-hover:block cursor-pointer"
+					className="absolute left-0 z-10 hidden group-hover:block cursor-pointer border-2 border-red-500 bg-zinc-800"
 					size={50}
 				/>
 				<div
@@ -39,7 +39,7 @@ const Home = ({ topAnimes }) => {
 				</div>
 				<MdChevronRight
 					onClick={slideRight}
-					className="absolute right-0 z-10 hidden group-hover:block cursor-pointer"
+					className="absolute right-0 z-10 hidden group-hover:block cursor-pointer border-2 border-red-500 bg-zinc-800"
 					size={50}
 				/>
 			</div>

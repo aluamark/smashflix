@@ -22,6 +22,7 @@ const MoviePlayEpisode = () => {
 	const number = location.state?.number;
 	const episodes = location.state?.episodes;
 	const [episodeData, setEpisodeData] = useState([]);
+	const [defaultSource, setDefaultSource] = useState("");
 	const [selectUrl, setSelectUrl] = useState("");
 	const [selectOption, setSelectOption] = useState("");
 	const [captions_arr, setCaptions] = useState([]);
@@ -53,6 +54,11 @@ const MoviePlayEpisode = () => {
 					};
 				});
 
+				const auto = data.sources.filter((source) => source.quality === "auto");
+				if (auto.length !== 0) {
+					setDefaultSource(auto[0]);
+				}
+
 				setEpisodeData(data.sources);
 				setCaptions(config);
 			} catch (err) {
@@ -61,11 +67,6 @@ const MoviePlayEpisode = () => {
 		};
 
 		trackPromise(fetchEpisodeData());
-
-		console.log(id);
-		console.log(season);
-		console.log(number);
-		console.log(availableEpisodes);
 	}, [id, number]);
 
 	return (
@@ -77,8 +78,8 @@ const MoviePlayEpisode = () => {
 					</div>
 				</div>
 			) : (
-				<div className="max-w-screen-lg mx-auto pt-24">
-					<div className="flex justify-between px-5">
+				<div className="max-w-screen-lg mx-auto py-24">
+					<div className="flex justify-between">
 						<div>
 							<Link
 								to={`/${movieData.id}`}
@@ -86,7 +87,7 @@ const MoviePlayEpisode = () => {
 								className="relative mx-auto flex items-center"
 							>
 								<BiArrowBack />
-								<h1 className="text-3xl font-bold text-red-600 pl-1">
+								<h1 className="text-3xl font-bold text-red-600 pl-3">
 									{title ? title : id}
 								</h1>
 							</Link>
@@ -108,9 +109,16 @@ const MoviePlayEpisode = () => {
 								id="quality"
 								className="h-8 px-5 text-black"
 							>
-								<option value="default">auto</option>
+								<option
+									defaultValue={true}
+									value={defaultSource.quality}
+									key={defaultSource.quality}
+								>
+									{defaultSource.quality}
+								</option>
 								{episodeData
-									.slice(0, episodeData.length - 1)
+									.slice(0)
+									.filter((source) => source.quality !== "auto")
 									.map((reso, index) => {
 										return (
 											<option value={index} key={reso.quality}>
@@ -124,7 +132,7 @@ const MoviePlayEpisode = () => {
 
 					<div className="pt-5 w-full">
 						<ReactPlayer
-							url={selectUrl ? selectUrl : episodeData[3]?.url}
+							url={selectUrl ? selectUrl : defaultSource.url}
 							controls
 							playing
 							volume={1}
@@ -179,7 +187,7 @@ const MoviePlayEpisode = () => {
 									</h1>
 
 									<div className="max-w-md">
-										<div className="pb-3">
+										<div className="py-3">
 											<p>
 												{movieData?.description?.length > 200
 													? movieData.description.substring(0, 200).trim() +

@@ -24,7 +24,13 @@ const MovieHeader = ({
 							<div className="flex">
 								<Link
 									to={`/watch/${episodes[0].id}`}
-									state={{ title: movieData.title, mediaId: mediaId }}
+									state={{
+										movieData,
+										title: episodes[0].title,
+										mediaId,
+										isSeries,
+										availableSeasons,
+									}}
 									className="flex items-center border text-white border-gray-300 hover:border-gray-800 hover:bg-gray-800 duration-300 cursor-pointer py-2 px-5 animate-pulse hover:anime"
 								>
 									<FaPlay className="mr-1" />
